@@ -26,6 +26,15 @@ let (|Regex|_|) pattern input =
         Some(List.tail [ for g in m.Groups -> g.Value ])
     else
         None
+        
+// Very sexy active pattern 
+// https://stackoverflow.com/questions/3722591/pattern-matching-on-the-beginning-of-a-string-in-f
+let (|Prefix|_|) (p:string) (s:string) =
+    if s.StartsWith(p) then
+        Some(s.Substring(p.Length))
+    else
+        None
+
 
 
 let mapBoolsToNumbers bools =
