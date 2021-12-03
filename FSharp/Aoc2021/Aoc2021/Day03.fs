@@ -6,6 +6,7 @@ open Utils
 
 let charToInt (c: char) = int (c) - 48
 
+// sneaky string convert, yeah yeah bitshift would work and are faster...
 let binArrayToString s =
   s
   |> Seq.fold (fun (c: string) x -> c + x.ToString()) ""
@@ -23,8 +24,6 @@ let binaryCount (input: list<string>) =
 
   let counts = pos |> List.map counter
 
-
-  // sneaky string convert, yeah yeah bitshifts would work and are faster, who cares...
   let gamma =
     counts
     |> List.map (fun x -> if x > input.Length / 2 then 1 else 0)
@@ -47,26 +46,20 @@ let co2Logic counter (inputList: list<string>) (pos: int) =
   | x when x > inputList.Length / 2 -> 0
   | _ -> 1
 
-let postitionCounter (input: list<string>) filterLogic =
-  let nrOfBits = input.Head.Length
-  let pos = [ for i in 0 .. nrOfBits - 1 -> i ]
-
+let mostCommonBitFilterCounter (input: list<string>) filterLogic =
   let counter (input: list<string>) (i: int) =
     input
     |> List.fold (fun (c: int) s -> charToInt s.[i] + c) 0
 
   let rec filter (inputList: list<string>) pos =
-
     let filterOn = filterLogic counter inputList pos
-
     let filterred =
       inputList
       |> List.filter (fun x -> (charToInt x.[pos]) = filterOn)
 
-    if filterred.Length = 1 then
-      filterred.[0]
-    else
-      filter filterred (pos + 1)
+    match filterred with
+    | [ x ] -> x
+    | rst -> filter rst (pos + 1)
 
   Convert.ToInt32(filter input 0, 2)
 
@@ -97,10 +90,10 @@ let test =
   let r = powerConsumption input
   Assert.Equal(r, 198)
 
-  let oxy = postitionCounter input oxygenLogic
+  let oxy = mostCommonBitFilterCounter input oxygenLogic
   Assert.Equal(oxy, 23)
 
-  let co2 = postitionCounter input co2Logic
+  let co2 = mostCommonBitFilterCounter input co2Logic
   Assert.Equal(co2, 10)
 
 let day03 =
@@ -111,7 +104,7 @@ let day03 =
     readLines "input/day03.txt" |> Seq.toList
 
   let a = powerConsumption input
-  let oxy = postitionCounter input oxygenLogic
-  let co2 = postitionCounter input co2Logic
+  let oxy = mostCommonBitFilterCounter input oxygenLogic
+  let co2 = mostCommonBitFilterCounter input co2Logic
 
   (a, oxy * co2)
