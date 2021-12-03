@@ -26,7 +26,7 @@ let slidingWindowIncrease (inputList: list<int>) =
     let rec counter input i =
         match input with
         // Niet de mooiste manier, maar werkt als een trein
-        | p1 :: p2 :: p3 :: p4 :: tail -> 
+        | p1 :: p2 :: p3 :: p4 :: tail ->
             let newI =
                 i + comparer [ p1; p2; p3 ] [ p2; p3; p4 ]
 
