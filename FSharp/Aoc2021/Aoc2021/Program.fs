@@ -1,6 +1,7 @@
 open Aoc2021.Day01
 open Aoc2021.Day02
 open Aoc2021.Day03
+open Aoc2021.Day04
 
 [<EntryPoint>]
 let main argv =
@@ -14,5 +15,8 @@ let main argv =
 
     let (a,b) = day03
     printfn "day03 : (%d %d)" a b
+
+    let (a,b) = day04
+    printfn "day04 : (%d %d)" a b
 
     0
