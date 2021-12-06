@@ -12,12 +12,14 @@
         <Compile Include="Day03.fs" />
         <Compile Include="Day04.fs" />
         <Compile Include="Day05.fs" />
+        <Compile Include="Day06.fs" />
         <Compile Include="Program.fs" />
         <Content Include="input\day01.txt" />
         <Content Include="input\day03.txt" />
         <Content Include="input\day02.txt" />
         <Content Include="input\day04.txt" />
         <Content Include="input\day05.txt" />
+        <Content Include="input\day06.txt" />
     </ItemGroup>
 
     <ItemGroup>
