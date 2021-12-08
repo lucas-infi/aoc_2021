@@ -14,6 +14,7 @@
         <Compile Include="Day05.fs" />
         <Compile Include="Day06.fs" />
         <Compile Include="Day07.fs" />
+        <Compile Include="Day08.fs" />
         <Compile Include="Program.fs" />
         <Content Include="input\day01.txt" />
         <Content Include="input\day03.txt" />

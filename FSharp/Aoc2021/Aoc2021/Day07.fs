@@ -4,11 +4,11 @@ open Xunit
 open System.IO
 open System
 
-let gaussSolutionOfSumOverN n =
+let rec gaussSolutionOfSumOverN n =
     if (n % 2) = 0 then
         (n + 1) * (n / 2)
     else
-        (n * ((n - 1) / 2)) + n
+        (gaussSolutionOfSumOverN (n - 1)) + n
 
 let moveCost (input: int seq) pos =
     input
@@ -20,11 +20,12 @@ let moveCostLinear (input: int seq) pos =
 
 let calcCost (input: int list) costFn =
     let max = input |> Seq.max
-    
-    let positions = [0 .. max]
-    
+
+    let positions = [ 0 .. max ]
+
     let moveCosts =
-        positions |> Seq.map (fun x -> (x, costFn input x))
+        positions
+        |> Seq.map (fun x -> (x, costFn input x))
 
     let _, v =
         moveCosts |> Seq.minBy (fun (_, v) -> v)
