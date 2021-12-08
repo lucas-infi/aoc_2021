@@ -5,29 +5,33 @@ open Xunit
 open System.IO
 open System
 
+    
 let countSimpleNumbers (input: string [] list) =
     let isSimple (s: string) =
         match s with
-        | s when s.Length = 2 -> 1
-        | s when s.Length = 3 -> 1
-        | s when s.Length = 4 -> 1
-        | s when s.Length = 7 -> 1
-        | _ -> 0
+        | s when s.Length = 2 -> Some((1, s))
+        | s when s.Length = 3 -> Some((7, s))
+        | s when s.Length = 4 -> Some((4, s))
+        | s when s.Length = 7 -> Some((8, s))
+        | _ -> None
 
     let checkString input =
-        input |> Seq.map (fun s -> isSimple s)
-        |> Seq.sum
-    
-    let a = input
-            |> Seq.map checkString
-            |> Seq.sum
+        input
+        |> Seq.map (fun s -> isSimple s)
+        |> Seq.sumBy
+            (fun x ->
+                match x with
+                | Some (_) -> 1
+                | None -> 0)
+
+    let a = input |> Seq.map checkString |> Seq.sum
     a
-    
+
 let createInputFromString (input: string) =
-     input.Split("\n", StringSplitOptions.RemoveEmptyEntries)
-        |> Seq.map (fun s -> s.Split("|") |> Seq.last)
-        |> Seq.map (fun s-> s.Split(" ", StringSplitOptions.RemoveEmptyEntries))
-        |> Seq.toList
+    input.Split("\n", StringSplitOptions.RemoveEmptyEntries)
+    |> Seq.map (fun s -> s.Split("|") |> Seq.last)
+    |> Seq.map (fun s -> s.Split(" ", StringSplitOptions.RemoveEmptyEntries))
+    |> Seq.toList
 
 let test =
     let input =
@@ -41,7 +45,7 @@ dbcfg fgd bdegcaf fgec aegbdf ecdfab fbedc dacgb gdcebf gf | cefg dcbef fcge gbc
 bdfegc cbegaf gecbf dfcage bdacg ed bedf ced adcbefg gebcd | ed bcgafe cdgba cbgef
 egadfb cdbfeg cegd fecab cgb gbdefca cg fgcdab egfdb bfceg | gbdfcae bgc cg cgb
 gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce"
-       
+
     let input = createInputFromString input
     let a = countSimpleNumbers input
 
@@ -54,5 +58,5 @@ let day08 =
     let input = File.ReadAllText "input/day08.txt"
     let input = createInputFromString input
     let a = countSimpleNumbers input
-    
+
     (a, 0)
