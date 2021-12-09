@@ -4,7 +4,6 @@ open System
 open Xunit
 open Utils
 
-let charToInt (c: char) = int (c) - 48
 
 // sneaky string convert, yeah yeah bitshift would work and are faster...
 let binArrayToString s =

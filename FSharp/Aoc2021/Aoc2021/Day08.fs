@@ -61,16 +61,10 @@ let lookupInCodex code (codex: (int * string) list) =
   let code =
     code |> Seq.sort |> Seq.toArray |> String
 
-  try
-    let v, _ =
-      codex |> List.find (fun (v, s) -> s = code)
+  let v, _ =
+    codex |> List.find (fun (v, s) -> s = code)
 
-    v
-  with
-  | :? Exception as ex ->
-    printfn "Exception! %s " (ex.Message)
-    -1
-
+  v
 
 let buildCompleteCodex (codex: (int * string) list) (code: string list) =
   let overlapFor s i =
@@ -252,7 +246,7 @@ gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce
   0
 
 let day08 =
-  test
+  test |> ignore
 
   let inputStr  = File.ReadAllText "input/day08.txt"
   let input = createInputFromString inputStr
