@@ -20,27 +20,32 @@ let isClosing c =
     | '>' -> true
     | _ -> false
 
+let isClosingFor opening ch = (int ch) - (int opening) <= 2
+
+let push (c: 'a) (lst: 'a list) = lst @ [ c ]
+
+let pop (lst: 'a list) = lst |> List.take (lst.Length - 2)
+
+let peek (lst: 'a list) = (lst |> List.last)
+
 let findBadChar (line: string) =
     let asChars = line.ToCharArray() |> Seq.toList
+    let mutable stack = []
 
-    let mutable counter = -1
-    
-    let rec returnUnBalancedChar br rest =
-        counter <- counter + 1
+    let doStuff (line: string) =
+        for c in line do
+            let r =
+                match c with
+                | c when isOpening c ->
+                    stack <- push c stack
+                    None
+                | c when isClosingFor (peek stack) c ->
+                    stack <- pop stack
+                    None
+                | c when isClosing c -> Some(c)
+            
 
-        match rest with
-        | [] -> []
-        | head :: tail ->
-            match head with
-            | head when isOpening head -> returnUnBalancedChar head tail
-            | head when (((int head) - (int br)) <= 2) -> '0' :: returnUnBalancedChar head tail
-            | _ -> [ head ]
-
-    let a =
-        returnUnBalancedChar (asChars |> Seq.head) (asChars |> List.skip 1)
-
-    a
-
+    '0'
 
 let calcFirstOutput (lines: string []) =
     let wheighing =
@@ -57,14 +62,12 @@ let calcFirstOutput (lines: string []) =
         v
 
     let score =
-        lines
-        |> Seq.map findBadChar
-        |> Seq.filter (fun ca -> ca |> Seq.exists (fun c -> isClosing c))
-        |> Seq.toList
+        lines |> Seq.map findBadChar |> Seq.toList
     //        |> Seq.map (fun x -> getScore x)
 //        |> Seq.sum
 
     score
+    0
 
 
 let test =
@@ -80,11 +83,28 @@ let test =
 <{([([[(<>()){}]>(<<{{
 <{([{{}}[<[[[<>{}]]]>[]]"
 
+    Assert.Equal('0', findBadChar "()")
+    Assert.Equal('0', findBadChar "{}")
+    Assert.Equal('0', findBadChar "[]")
+    Assert.Equal('0', findBadChar "([])")
+    Assert.Equal('0', findBadChar "([][][])")
+    Assert.Equal('0', findBadChar "(())")
+    Assert.Equal('0', findBadChar "[<>({}){}[([])<>]]")
+    Assert.Equal('0', findBadChar "(((((((((())))))))))")
+    Assert.Equal('0', findBadChar "(((")
+    Assert.Equal('}', findBadChar "(}")
+    Assert.Equal('}', findBadChar "[(}]")
+    Assert.Equal('>', findBadChar "{()()()>")
+    Assert.Equal('}', findBadChar "(((()))}")
+    Assert.Equal(')', findBadChar "<([]){()}[{}])")
+    Assert.Equal(')', findBadChar "((<([]){()}[{}])))")
+
+
     let input =
         input.Split("\n", StringSplitOptions.RemoveEmptyEntries)
 
     let a = calcFirstOutput input
-    //    Assert.Equal(26397, a)
+    Assert.Equal(26397, a)
 
     0
 
