@@ -7,10 +7,14 @@ open Aoc2021.Day06
 open Aoc2021.Day07
 open Aoc2021.Day08
 open Aoc2021.Day09
+open Aoc2021.Day10
 
 [<EntryPoint>]
 let main argv =
     printfn "Running inputs"
+
+    let (a, b) = day10
+    printfn "day10 : (%d %d)" a b
 
     let (a, b) = day09
     printfn "day09 : (%d %d)" a b
