@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Aoc2021", "Aoc2021\Aoc2021.fsproj", "{9507C147-7647-44DA-B1DE-ED1E560B8189}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aoc2021Cs", "Aoc2021Cs\Aoc2021Cs.csproj", "{3697FDF5-6298-4CEF-BA6F-5A8671B959AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{9507C147-7647-44DA-B1DE-ED1E560B8189}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9507C147-7647-44DA-B1DE-ED1E560B8189}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9507C147-7647-44DA-B1DE-ED1E560B8189}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3697FDF5-6298-4CEF-BA6F-5A8671B959AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3697FDF5-6298-4CEF-BA6F-5A8671B959AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3697FDF5-6298-4CEF-BA6F-5A8671B959AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3697FDF5-6298-4CEF-BA6F-5A8671B959AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
